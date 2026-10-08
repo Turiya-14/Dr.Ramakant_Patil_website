@@ -1,0 +1,14 @@
+{
+  "name": "dr-ramakant-patil-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Professional profile website for Dr. Ramakant Patil, pediatrician, Nashik. Static HTML/CSS with a zero-dependency build.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "node serve.mjs"
+  }
+}

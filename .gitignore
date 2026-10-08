@@ -1,0 +1,9 @@
+# Generated offline review copies (rebuilt by `npm run build`)
+preview/
+
+# Research and handover notes: kept local only (the repository is public)
+internal/
+
+node_modules/
+.DS_Store
+Thumbs.db
