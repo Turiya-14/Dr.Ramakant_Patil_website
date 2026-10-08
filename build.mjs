@@ -9,11 +9,13 @@
  *                                         og:image and sitemap.xml
  *
  * The origin can also be set in site.config.json ("siteOrigin"). The
- * environment variable wins. Leave both empty until the real domain is known.
+ * environment variable wins. On Vercel, if neither is set, the project's
+ * production domain (VERCEL_PROJECT_PRODUCTION_URL) is used automatically,
+ * so a custom domain added later is picked up on the next deployment.
  */
 import { createHash } from 'node:crypto';
 import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
-import { dirname, join, relative } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { renderHome } from './src/templates/home.mjs';
@@ -32,7 +34,10 @@ async function readOrigin() {
   } catch {
     /* no config file — fine */
   }
-  const raw = (process.env.SITE_ORIGIN ?? configured).trim();
+  let raw = (process.env.SITE_ORIGIN ?? configured).trim();
+  if (!raw && process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    raw = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL.trim()}`;
+  }
   if (!raw) return '';
   let url;
   try {

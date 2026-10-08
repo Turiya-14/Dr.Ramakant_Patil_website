@@ -28,7 +28,8 @@ Browsers block web fonts on pages opened directly from a folder (`file://`). Tha
 ├── source-assets/        original 4000 × 4000 portrait (not published)
 ├── build.mjs             build script, no dependencies
 ├── serve.mjs             local preview server for dist/
-├── site.config.json      optional production origin (empty)
+├── site.config.json      optional production origin (empty; Vercel sets it automatically)
+├── vercel.json           Vercel build settings (build command, output folder, headers)
 └── package.json
 ```
 
@@ -56,9 +57,25 @@ Every build also checks for empty `href="#"` links, missing anchors, missing loc
 
 Run `npm run build` after any edit.
 
-## Production origin (for the deployment person)
+## Deployment on Vercel
 
-No domain is configured, and none has been guessed. Once the real address is known, set it in **one** of these places:
+The site is live at **https://drramakantpatil.vercel.app/**. `vercel.json` tells Vercel to run `npm run build` and publish `dist/`.
+
+Without that file, Vercel finds no framework and serves the `public/` folder instead. That folder has no `index.html`, so every page returns 404. Do not remove `vercel.json`.
+
+On Vercel, the build reads the project's production domain from `VERCEL_PROJECT_PRODUCTION_URL` (Vercel sets it automatically). The canonical URLs, `og:image` and sitemap are written with that domain. If a custom domain is added in Vercel later, the next deployment switches to it on its own.
+
+`vercel.json` also sets these headers:
+
+- long-term caching for `/fonts/`
+- `nosniff`
+- the referrer policy
+- `SAMEORIGIN` framing
+- a Permissions-Policy that turns off camera, microphone and location
+
+## Production origin (other hosts)
+
+On hosts other than Vercel, nothing is detected automatically. Once the real address is known, set it in **one** of these places:
 
 - `site.config.json` → `"siteOrigin": "https://www.real-domain.in"`
 - or the environment: `SITE_ORIGIN=https://www.real-domain.in npm run build` (PowerShell: `$env:SITE_ORIGIN="https://www.real-domain.in"; npm run build`)
@@ -75,10 +92,8 @@ Without an origin, those are omitted rather than written with a wrong address. T
 
 The pages use relative paths only, so `dist/` works at a domain root or in a sub-folder. Both pages are real files, so `/privacy-policy.html` works on direct visits and refresh without server rewrites. Any static host works, including the nginx/Docker pattern used for the Dr. Darwade site, with `dist/` as the web root (or run `npm run build` in the image first).
 
-Still to do at deployment (not done here):
+Still to do after deployment:
 
-- connect hosting and HTTPS
-- set the origin and rebuild
 - submit the sitemap in Search Console
 - optionally, link the site from the Google Business Profile
 
