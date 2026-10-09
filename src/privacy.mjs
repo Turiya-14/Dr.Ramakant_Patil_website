@@ -7,8 +7,8 @@
 
 export const privacy = {
   title: 'Privacy Policy',
-  lastUpdated: '8 October 2026',
-  lastUpdatedISO: '2026-10-08',
+  lastUpdated: '9 October 2026',
+  lastUpdatedISO: '2026-10-09',
   sections: [
     {
       heading: 'About this website',
@@ -70,7 +70,7 @@ export const privacy = {
     {
       heading: 'Security and retention',
       paragraphs: [
-        'Reasonable safeguards should be used for information handled by the practice and its service providers. No internet or email service can guarantee absolute security. Enquiry and technical records may be retained for the purposes described above and applicable requirements; this website does not state an unverified fixed retention period.',
+        'No internet, email or messaging service can guarantee complete security, so please share only what your enquiry needs. Enquiry and technical records may be kept for the purposes described above, and for as long as applicable law or clinical-record rules require.',
       ],
     },
     {

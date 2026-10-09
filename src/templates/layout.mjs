@@ -12,14 +12,20 @@ export const esc = (value) =>
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 
-/** Escape, then keep short pairs together with no-break spaces. */
+/**
+ * Escape, then keep short pairs together: no-break spaces after titles and
+ * between numbers and units, and no line break inside "over-50" or inside
+ * en-dash compounds such as "IYCFCON–POSHAN". For text content only.
+ */
 export const t = (value) =>
   esc(value)
     .replace(/\bDr\. /g, 'Dr.&nbsp;')
     .replace(/\bNo\. /g, 'No.&nbsp;')
     .replace(/\bD\. Y\. /g, 'D.&nbsp;Y.&nbsp;')
     .replace(/\bB\. J\. /g, 'B.&nbsp;J.&nbsp;')
-    .replace(/(\d) (km|hours|minutes|August|January|June|July|May|November|October)\b/g, '$1&nbsp;$2');
+    .replace(/\bMAHA (?=[A-Z])/g, 'MAHA&nbsp;')
+    .replace(/(\d) (km|hours|minutes|August|January|June|July|May|November|October)\b/g, '$1&nbsp;$2')
+    .replace(/\b(over-\d+|[A-Za-z]+–[A-Za-z]+)\b/g, '<span class="nowrap">$1</span>');
 
 const attrs = (obj) =>
   Object.entries(obj)

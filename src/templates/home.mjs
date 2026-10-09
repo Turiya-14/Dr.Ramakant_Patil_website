@@ -51,7 +51,19 @@ function heroSection() {
 }
 
 /* ------------------------------------------------------------------ about */
+// A drop cap would split an opening abbreviation ("D" + "r. Ramakant…"),
+// so it is only used when the first paragraph starts with an ordinary word.
+const startsWithAbbreviation = (text) => /^(Dr|Mr|Mrs|Ms|Prof|St)\.\s/.test(text);
+
+// "Antara Hospital, Nashik · Nelson Hospital, Nashik": each part stays on one line.
+const keepParts = (text) =>
+  text
+    .split(' · ')
+    .map((part) => `<span class="nowrap">${t(part)}</span>`)
+    .join(' · ');
+
 function aboutSection() {
+  const prose = startsWithAbbreviation(about.paragraphs[0]) ? 'prose' : 'prose dropcap';
   return `<section class="section" id="about" aria-labelledby="about-title">
   <div class="wrap section__grid">
     ${label(about.label)}
@@ -59,19 +71,19 @@ function aboutSection() {
       <div class="about__aside">
         <h2 class="h2 h2--compact" id="about-title">${headingLines(about.title)}</h2>
         <figure class="photo about__figure">
-          ${picture(images.atWork, { sizes: '(min-width: 1280px) 440px, (min-width: 960px) 36vw, (min-width: 520px) 460px, 100vw' })}
-          <figcaption>${t(images.atWork.caption)}</figcaption>
+          ${picture(images.about, { sizes: '(min-width: 1280px) 440px, (min-width: 960px) 36vw, (min-width: 520px) 460px, 100vw' })}
+          <figcaption>${t(images.about.caption)}</figcaption>
         </figure>
       </div>
       <div class="about__text">
-        <div class="prose dropcap">
+        <div class="${prose}">
           ${about.paragraphs.map((p) => `<p>${t(p)}</p>`).join('\n          ')}
         </div>
         <div class="record">
           <h3 class="label record__title">${esc(about.recordTitle)}</h3>
           <dl>
             ${about.record
-              .map((r) => `<div${r.small ? ' class="is-small"' : ''}><dt>${esc(r.term)}</dt><dd>${t(r.detail)}</dd></div>`)
+              .map((r) => `<div${r.small ? ' class="is-small"' : ''}><dt>${esc(r.term)}</dt><dd>${r.detail.includes(' · ') ? keepParts(r.detail) : t(r.detail)}</dd></div>`)
               .join('\n            ')}
           </dl>
         </div>
@@ -302,7 +314,7 @@ function gallerySection() {
           rest.length
             ? `
         <details class="more">
-          <summary>${icons.chev}<span>${rest.length} more report${rest.length > 1 ? 's' : ''}</span></summary>
+          <summary>${icons.chev}<span>${rest.length} earlier report${rest.length > 1 ? 's' : ''}</span></summary>
           <ul class="press">
           ${rest.map(pressItem).join('\n          ')}
           </ul>
@@ -317,24 +329,19 @@ function gallerySection() {
 
 /* --------------------------------------------------------------- hospital */
 function hospitalSection() {
-  const more = images.hospital.more;
-  const sizesFor = rowSizes(more, 994, 18);
   return `<section class="section section--tint" id="hospital" aria-labelledby="hospital-title">
   <div class="wrap section__grid">
     ${label(hospital.label)}
-    <div>
-      <div class="hospital">
-        <div>
-          <h2 class="h2" id="hospital-title">${headingLines(hospital.title)}</h2>
-          <div class="prose">
-            ${hospital.paragraphs.map((p) => `<p>${t(p)}</p>`).join('\n            ')}
-          </div>
-          <p class="hospital__link">${extLink(contact.website.href, hospital.link)}</p>
+    <div class="hospital">
+      <div>
+        <h2 class="h2" id="hospital-title">${headingLines(hospital.title)}</h2>
+        <div class="prose">
+          ${hospital.paragraphs.map((p) => `<p>${t(p)}</p>`).join('\n          ')}
         </div>
-        ${zoomFigure(images.hospital.main, '(min-width: 1280px) 560px, (min-width: 960px) 46vw, 100vw')}
+        <p class="hospital__link">${extLink(contact.website.href, hospital.link)}</p>
       </div>
-      <div class="photo-row hospital__more">
-        ${more.map((img) => zoomFigure(img, sizesFor(img))).join('\n        ')}
+      <div class="hospital__photos">
+        ${images.hospital.map((img) => zoomFigure(img, '(min-width: 1280px) 530px, (min-width: 960px) 44vw, 100vw')).join('\n        ')}
       </div>
     </div>
   </div>

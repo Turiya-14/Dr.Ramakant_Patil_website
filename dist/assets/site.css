@@ -134,7 +134,8 @@ ul, ol { padding: 0; list-style: none; }
 
 a { color: inherit; }
 a[href^="tel:"],
-a[href*="wa.me"] { white-space: nowrap; }
+a[href*="wa.me"],
+.nowrap { white-space: nowrap; }
 
 ::selection { background: var(--navy); color: var(--gold-light); }
 
@@ -1139,11 +1140,11 @@ html.js .road:not(.is-visible) .road__dot { transform: scale(0.4); opacity: 0; }
    ========================================================================== */
 .hospital { display: grid; gap: 32px; }
 @media (min-width: 960px) {
-  .hospital { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); column-gap: clamp(40px, 5vw, 72px); align-items: end; }
+  .hospital { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); column-gap: clamp(40px, 5vw, 72px); align-items: start; }
 }
 .hospital .h2 { margin-bottom: 22px; }
 .hospital__link { margin-top: 22px; }
-.hospital__more { margin-top: 28px; }
+.hospital__photos { display: grid; gap: 22px; }
 
 /* ==========================================================================
    Contact — navy

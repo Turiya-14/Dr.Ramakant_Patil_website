@@ -105,14 +105,16 @@ export const images = {
     alt: 'Dr. Ramakant Patil, smiling, in a navy suit and blue tie, seated in a black leather chair.',
     source: 'Owner-supplied portrait from the approved prototype (4000×4000 JPEG). Flat turquoise backdrop separated; subject unaltered.',
   },
-  atWork: {
-    file: 'dr-patil-at-work',
-    widths: [600, 1200],
-    width: 1200,
-    height: 900,
-    alt: 'Dr. Ramakant Patil typing at a desktop computer at his desk, a hospital register open beside him.',
-    caption: 'Dr. Ramakant Patil at work.',
-    source: 'P06, Antara Hospital website (S01). Cropped 4:3 from 1600×900.',
+  about: {
+    file: 'dr-patil-consulting-desk',
+    widths: [508],
+    width: 508,
+    height: 381,
+    alt: 'Dr. Ramakant Patil in a white shirt with a stethoscope, smiling at his desk, a children’s jungle mural on the wall behind him.',
+    caption: 'Dr. Ramakant Patil at Antara Hospital.',
+    source:
+      'P02, Antara Hospital homepage (S01): cropped to Dr. Ramakant Patil alone (box 262,205,770,586). ' +
+      'Do NOT use P06 (DSC04910): it shows a staff member at the insurance desk, not Dr. Patil.',
   },
   fellowship: {
     file: 'fellowship-portrait',
@@ -152,37 +154,29 @@ export const images = {
       source: 'P16, Antara Hospital gallery (S04). Plaque title and year unverified, so not named.',
     },
   ],
-  hospital: {
-    main: {
-      file: 'antara-consultation-room',
-      widths: [800, 1410],
-      width: 1410,
-      height: 900,
-      alt: 'Dr. Ramakant Patil and Dr. Sadhana Patil seated at a consultation desk, with a children’s jungle mural on the wall behind them.',
-      caption: 'Dr. Ramakant Patil and Dr. Sadhana Patil, pediatricians at Antara Hospital.',
-      source: 'P02, Antara Hospital homepage (S01).',
+  // P02, the joint consulting-room photo, is not repeated here: the About photo is cropped from it.
+  hospital: [
+    {
+      file: 'antara-consulting-room',
+      widths: [1008],
+      width: 1008,
+      height: 360,
+      alt: 'Panoramic view of the consulting room at Antara Hospital: Dr. Ramakant Patil and Dr. Sadhana Patil at a white desk, a children’s jungle mural behind them and waiting benches along the walls.',
+      caption: 'Dr. Ramakant Patil and Dr. Sadhana Patil in the consulting room at Antara Hospital.',
+      source:
+        'P01, Antara Hospital homepage (S01). Cropped panorama strip. The research pack called it the reception; ' +
+        'the mural, fan and cabinets match the consulting room in P02.',
     },
-    more: [
-      {
-        file: 'antara-reception',
-        widths: [1008],
-        width: 1008,
-        height: 360,
-        alt: 'Panoramic view of the Antara Hospital reception, with a curved desk, waiting benches and children’s artwork.',
-        caption: 'Reception, Antara Hospital.',
-        source: 'P01, Antara Hospital homepage (S01). Cropped panorama strip.',
-      },
-      {
-        file: 'antara-treatment-room',
-        widths: [800, 1400],
-        width: 1400,
-        height: 788,
-        alt: 'A treatment room at Antara Hospital with beds, blue privacy curtains and a supply trolley.',
-        caption: 'A treatment room at Antara Hospital.',
-        source: 'P07, Antara Hospital homepage (S01). Facility context only.',
-      },
-    ],
-  },
+    {
+      file: 'antara-treatment-room',
+      widths: [800, 1400],
+      width: 1400,
+      height: 788,
+      alt: 'A treatment room at Antara Hospital with beds, blue privacy curtains and a supply trolley.',
+      caption: 'A treatment room at Antara Hospital.',
+      source: 'P07, Antara Hospital homepage (S01). Facility context only.',
+    },
+  ],
 };
 
 export const hero = {
@@ -207,8 +201,9 @@ export const milestones = [
 export const about = {
   label: 'About',
   title: ['Over three decades', 'of pediatric care'],
+  // The first paragraph carries a drop cap, so it must not open with "Dr." (the cap would split it).
   paragraphs: [
-    'Dr. Ramakant Dajiba Patil is a pediatrician in Nashik, associated with Antara Hospital and Nelson Hospital. Alongside seeing patients, he counsels families, teaches, and has long been active in pediatric associations.',
+    'Based in Nashik, Dr. Ramakant Dajiba Patil is a pediatrician associated with Antara Hospital and Nelson Hospital. Alongside seeing patients, he counsels families, teaches, and has long been active in pediatric associations.',
     'He completed his MBBS in 1986 and his MD in Paediatrics in 1989, both from Poona University, and studied at B. J. Medical College, Pune. From 2015 to 2017 he was Professor of Paediatrics at Dr. Vasantrao Pawar Medical College, Hospital & Research Centre, Nashik.',
     'His clinical interests include childhood asthma and pediatric critical care. He was president of MAHAIAP in 2023, and in 2026 he represents Maharashtra on the Executive Board of the Indian Academy of Pediatrics.',
   ],
@@ -294,7 +289,7 @@ export const leadership = {
       roles: [
         { role: 'West Zone Coordinator', org: 'IAP NTEP Committee', source: 'S11. Committee name as published.' },
         { role: 'Chairman', org: 'MAHAIAP Constitution Reform Committee', source: 'S13 p. 19' },
-        { role: 'President', org: 'Hospital Owner Association of Nashik', source: 'S23, S24 (May 2024 coverage). Year-bound; not a 2026 title.' },
+        { role: 'President', org: 'Hospital Owners Association, Nashik', source: 'S23, S24 (May 2024 coverage; Express Healthcare styles it "Hospital Owner Association of Nashik"). Registered name per S28c. Year-bound; not a 2026 title.' },
       ],
     },
     {
@@ -321,19 +316,21 @@ export const leadership = {
   ],
   membership: { text: 'Member, IAP National Respiratory Chapter', detail: 'R-01002', source: 'S18' },
   teachingTitle: 'Teaching and talks',
+  // Newest first, like the roles beside it.
   teaching: [
     {
-      date: '2015–17',
-      title: 'Professor of Paediatrics',
-      text: 'Dr. Vasantrao Pawar Medical College, Hospital & Research Centre, Nashik.',
-      source: 'S16',
+      date: '17 January 2026',
+      title: 'Programme speaker, PEDICON 2026',
+      text: 'CME session “Managing Over-Involved or Anxious Parents: A Conversation Strategy”.',
+      link: { label: 'Scientific programme (PDF)', href: 'https://www.pedicon2026.com/images/PEDICON_2026_SCIENTIFIC_PROGRAM_poppins_page_numbers.pdf' },
+      source: 'S26 p. 26. Listed in the programme; delivery not separately evidenced.',
     },
     {
-      date: '2022',
-      title: 'Speaker, drug-resistant TB course',
-      text: 'Medical Learning Hub course on drug-resistant tuberculosis in children: diagnosis and the treatment algorithm.',
-      link: { label: 'View the course', href: 'https://medicallearninghub.com/course/treatment-of-paediatric-drug-resistant-tuberculosis-with-complex-case-presentation?lang=en' },
-      source: 'S21',
+      date: '31 May 2024',
+      title: 'Panellist, GenNext Hospital Summit, Nashik',
+      text: 'Panel on digital technology in hospitals, reported by Express Healthcare.',
+      link: { label: 'Read the report', href: 'https://www.expresshealthcare.in/healthcare-videos/gennext-hospital-summit/panel-discussion-digital-acceleration-in-hospitals-opportunities-challenges-and-impact/443910/' },
+      source: 'S23, S24',
     },
     {
       date: '20 August 2023',
@@ -343,18 +340,17 @@ export const leadership = {
       source: 'S22 p. 77',
     },
     {
-      date: '31 May 2024',
-      title: 'Panelist, GenNext Hospital Summit, Nashik',
-      text: 'Panel on digital technology in hospitals, reported by Express Healthcare.',
-      link: { label: 'Read the report', href: 'https://www.expresshealthcare.in/healthcare-videos/gennext-hospital-summit/panel-discussion-digital-acceleration-in-hospitals-opportunities-challenges-and-impact/443910/' },
-      source: 'S23, S24',
+      date: '2022',
+      title: 'Speaker, drug-resistant TB course',
+      text: 'Medical Learning Hub course on drug-resistant tuberculosis in children: diagnosis and the treatment algorithm.',
+      link: { label: 'View the course', href: 'https://medicallearninghub.com/course/treatment-of-paediatric-drug-resistant-tuberculosis-with-complex-case-presentation?lang=en' },
+      source: 'S21',
     },
     {
-      date: '17 January 2026',
-      title: 'Programme speaker, PEDICON 2026',
-      text: 'CME session “Managing Over-Involved or Anxious Parents: A Conversation Strategy”.',
-      link: { label: 'Scientific programme (PDF)', href: 'https://www.pedicon2026.com/images/PEDICON_2026_SCIENTIFIC_PROGRAM_poppins_page_numbers.pdf' },
-      source: 'S26 p. 26. Listed in the programme; delivery not separately evidenced.',
+      date: '2015–17',
+      title: 'Professor of Paediatrics',
+      text: 'Dr. Vasantrao Pawar Medical College, Hospital & Research Centre, Nashik.',
+      source: 'S16',
     },
   ],
 };
@@ -387,13 +383,14 @@ export const community = {
   },
   road: {
     title: 'The long road',
-    intro: 'Outside the hospital, Dr. Patil cycles long distances, treks and runs. Three rides stand out.',
+    intro:
+      'Outside the hospital, Dr. Patil cycles long distances, treks and runs. He has seen Race Across America from both sides: first in a support crew, then as a rider.',
     milestones: [
       {
         year: '2015',
         title: 'Support crew',
-        text: 'Crew member for the Mahajan brothers’ Race Across America attempt.',
-        source: 'S35. The brothers’ finish is their achievement.',
+        text: 'In the crew behind the Mahajan brothers, who finished the race as a team of two.',
+        source: 'S35. The brothers’ finish is their achievement; he is not described as a rider.',
       },
       {
         year: '2016',
@@ -416,20 +413,21 @@ export const gallery = {
   title: ['At conferences', 'and ceremonies'],
 };
 
-/* Press links. The first `visible` entries show; the rest sit in a disclosure. */
+/* Press links, newest first. The first `visible` entries show; the older
+   ones sit in a disclosure. */
 export const coverage = {
   title: 'In the press',
   visible: 6,
   items: [
-    { publisher: 'Loksatta', date: '28 July 2023', lang: 'Marathi', topic: 'Launch of the Sankalp–Sampoorna Swasthya school-health programme in Nashik.', href: 'https://www.loksatta.com/nashik/guidance-to-school-students-for-better-physical-and-mental-health-ysh-95-3819942/' },
     { publisher: 'Express Healthcare', date: '7 June 2024', topic: 'GenNext Hospital Summit, Nashik: panel on digital technology in hospitals.', href: 'https://www.expresshealthcare.in/healthcare-videos/gennext-hospital-summit/panel-discussion-digital-acceleration-in-hospitals-opportunities-challenges-and-impact/443910/' },
-    { publisher: 'The Indian Express', date: '21 June 2017', topic: 'Nashik doctors ride Race Across America for children’s eye care in Bihar.', href: 'https://indianexpress.com/article/india/to-ensure-eye-care-for-kids-in-bihar-team-of-doctors-takes-part-in-gruelling-bike-race-4714479/' },
-    { publisher: 'Times of India', date: '8 November 2016', topic: 'Dr. Patil and Dr. Rajendra Nehete complete the 643 km Deccan Cliff Hanger.', href: 'https://timesofindia.indiatimes.com/city/nashik/four-cyclists-qualify-for-race-across-america/articleshow/55304500.cms' },
-    { publisher: 'Medical Learning Hub', date: '2022', topic: 'Course on drug-resistant tuberculosis in children, with Dr. Patil among the speakers.', href: 'https://medicallearninghub.com/course/treatment-of-paediatric-drug-resistant-tuberculosis-with-complex-case-presentation?lang=en' },
     { publisher: 'Dr. D. Y. Patil Vidyapeeth', date: 'July–December 2023', topic: 'MAHA IYCFCON–POSHAN 2023, with Dr. Patil as chief guest.', href: 'https://dpu.edu.in/documents/other/newsletter-july-to-dec-2023.pdf' },
-    { publisher: 'Times of India', date: 'June 2015', topic: 'The Mahajan brothers finish Race Across America; Dr. Patil was part of the crew.', href: 'https://timesofindia.indiatimes.com/city/nashik/doctor-brothers-first-indians-to-finish-raam-in-team-of-two-category/articleshow/47872328.cms' },
+    { publisher: 'Loksatta', date: '28 July 2023', lang: 'Marathi', topic: 'Launch of the Sankalp–Sampoorna Swasthya school-health programme in Nashik.', href: 'https://www.loksatta.com/nashik/guidance-to-school-students-for-better-physical-and-mental-health-ysh-95-3819942/' },
+    { publisher: 'Medical Learning Hub', date: '2022', topic: 'Course on drug-resistant tuberculosis in children, with Dr. Patil among the speakers.', href: 'https://medicallearninghub.com/course/treatment-of-paediatric-drug-resistant-tuberculosis-with-complex-case-presentation?lang=en' },
     { publisher: 'Maharashtra Times', date: 'October 2019', lang: 'Marathi', topic: 'Pediatric conference in Nashik on human milk banking; Dr. Patil among the organisers.', href: 'https://maharashtratimes.com/maharashtra/nashik/human-milk-bank-is-a-boon-for-children/articleshow/71583143.cms' },
     { publisher: 'Maharashtra Times', date: 'October 2019', lang: 'Marathi', topic: 'Workshop for nurses held with the same Nashik conference.', href: 'https://maharashtratimes.com/maharashtra/nashik/the-role-of-nurses-in-the-medical-field-is-important/articleshow/71543730.cms' },
+    { publisher: 'The Indian Express', date: '21 June 2017', topic: 'Nashik doctors ride Race Across America for children’s eye care in Bihar.', href: 'https://indianexpress.com/article/india/to-ensure-eye-care-for-kids-in-bihar-team-of-doctors-takes-part-in-gruelling-bike-race-4714479/' },
+    { publisher: 'Times of India', date: '8 November 2016', topic: 'Dr. Patil and Dr. Rajendra Nehete complete the 643 km Deccan Cliff Hanger.', href: 'https://timesofindia.indiatimes.com/city/nashik/four-cyclists-qualify-for-race-across-america/articleshow/55304500.cms' },
+    { publisher: 'Times of India', date: 'June 2015', topic: 'The Mahajan brothers finish Race Across America; Dr. Patil was part of their crew.', href: 'https://timesofindia.indiatimes.com/city/nashik/doctor-brothers-first-indians-to-finish-raam-in-team-of-two-category/articleshow/47872328.cms' },
   ],
   // Other reports were reviewed and deliberately left out (see the local research notes).
 };

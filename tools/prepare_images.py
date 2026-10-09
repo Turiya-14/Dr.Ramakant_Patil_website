@@ -92,21 +92,25 @@ report += save_webp(cut, "portrait-cutout", [720, 1080, 1440], quality=84)
 
 # ---------------------------------------------------------- photographs
 jobs = [
-    # (prefix, output name, crop box or None, widths)
-    ("06", "dr-patil-at-work", (250, 0, 1450, 900), [600, 1200]),
-    ("14", "fellowship-portrait", (220, 300, 1420, 1900), [600, 1200]),
-    ("19", "fellowship-joint", None, [800, 1600]),
-    ("15", "conference-ceremony", None, [600, 1100]),
-    ("16", "conference-plaque", (352, 380, 1652, 2330), [600, 1200]),
-    ("02", "antara-consultation-room", None, [800, 1410]),
-    ("01", "antara-reception", (0, 70, 1008, 430), [1008]),
-    ("07", "antara-treatment-room", None, [800, 1400]),
+    # (prefix, output name, crop box or None, widths, quality)
+    # P02 is the only photo of Dr. Patil at work. It is cropped to him alone,
+    # clear of the monitor on the left and his colleague's chair on the right.
+    # Never use P06 (DSC04910): the man at that desk is a staff member at the
+    # insurance desk, not Dr. Patil.
+    ("02", "dr-patil-consulting-desk", (262, 205, 770, 586), [508], 86),
+    ("14", "fellowship-portrait", (220, 300, 1420, 1900), [600, 1200], 80),
+    ("19", "fellowship-joint", None, [800, 1600], 80),
+    ("15", "conference-ceremony", None, [600, 1100], 80),
+    ("16", "conference-plaque", (352, 380, 1652, 2330), [600, 1200], 80),
+    # P01 is a 360° panorama of the consulting room (not the reception).
+    ("01", "antara-consulting-room", (0, 70, 1008, 430), [1008], 80),
+    ("07", "antara-treatment-room", None, [800, 1400], 80),
 ]
-for prefix, name, box, widths in jobs:
+for prefix, name, box, widths, quality in jobs:
     im = Image.open(find(prefix)).convert("RGB")
     if box:
         im = im.crop(box)
-    report += save_webp(im, name, widths)
+    report += save_webp(im, name, widths, quality=quality)
 
 for row in report:
     print("{:<36} {:>5} x {:<5} {:>8,} bytes".format(*row))
